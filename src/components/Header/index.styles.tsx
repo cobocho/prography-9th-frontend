@@ -5,6 +5,10 @@ export const Container = styled.header`
   display: flex;
   align-items: center;
 
+  position: fixed;
+  left: 0;
+  right: 0;
+
   width: ${DESKTOP_CONTAINER_WIDTH};
   height: ${HEADER_HEIGHT}px;
 

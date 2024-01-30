@@ -11,7 +11,8 @@ export const ALL_CATEGORY_STALE_TIME = 10 * 60 * 1000;
 export const useGetAllCategories = () => {
   return useQuery<Category[]>({
     queryKey: ALL_CATEGORY_QUERY_KEY,
-    queryFn: () => http.get<Category[]>(`/categories.php`),
+    queryFn: () =>
+      http.get<{ categories: Category[] }>(`/categories.php`).then((res) => res.categories),
     staleTime: ALL_CATEGORY_STALE_TIME,
   });
 };
