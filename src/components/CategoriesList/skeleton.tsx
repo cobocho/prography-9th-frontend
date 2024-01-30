@@ -1,12 +1,14 @@
 import Button from '@components/Button';
 import * as Styles from './index.styles';
 
-const SKELETON_QUANTITY = 10;
+interface Props {
+  length: number;
+}
 
-const CategoriesListSkeleton = () => {
+const CategoriesListSkeleton = ({ length }: Props) => {
   return (
     <Styles.Container>
-      {Array.from({ length: SKELETON_QUANTITY }).map((_, idx) => (
+      {Array.from({ length }).map((_, idx) => (
         <Button key={idx} isSkeleton />
       ))}
     </Styles.Container>

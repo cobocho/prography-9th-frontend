@@ -24,7 +24,7 @@ export const Container = styled.button<Props>`
   background-color: ${({ color }) => {
     switch (color) {
       case 'primary':
-        return `grey`;
+        return `lightgrey`;
       case 'secondary':
         return `pink`;
     }

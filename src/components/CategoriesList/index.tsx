@@ -19,11 +19,8 @@ const CategoriesList = () => {
           : [...selectedCategories, strCategory];
         searchParams.set('category', newCategories.join(','));
         return (
-          <Link to={`?${searchParams.toString()}`}>
-            <Button
-              color={selectedCategories?.includes(strCategory) ? 'secondary' : 'primary'}
-              key={strCategory}
-            >
+          <Link to={`?${searchParams.toString()}`} key={strCategory}>
+            <Button color={selectedCategories?.includes(strCategory) ? 'secondary' : 'primary'}>
               {strCategory}
             </Button>
           </Link>
