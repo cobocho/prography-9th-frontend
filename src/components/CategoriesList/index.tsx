@@ -1,31 +1,34 @@
 import Button from '@components/Button';
 import * as Styles from './index.styles';
 import { useGetAllCategories } from '../../api/category.api';
-import { Category } from '../../types/category';
-import { useSelectedCategories, useToggleCategory } from '../../store/category';
+import { useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const CategoriesList = () => {
   const { data: categories } = useGetAllCategories();
-
-  const toggleCategory = useToggleCategory();
-
-  const selectedCategories = useSelectedCategories();
-
-  const clickHandler = (idCategory: Category['idCategory']) => {
-    toggleCategory(idCategory);
-  };
+  const [searchParams] = useSearchParams();
+  const selectedCategories = searchParams.get('category')
+    ? searchParams.get('category')!.split(',')
+    : [];
 
   return (
     <Styles.Container>
-      {categories!.map((category) => (
-        <Button
-          color={selectedCategories.includes(category.idCategory) ? 'secondary' : 'primary'}
-          onClick={() => clickHandler(category.idCategory)}
-          key={category.idCategory}
-        >
-          {category.strCategory}
-        </Button>
-      ))}
+      {categories!.map(({ strCategory }) => {
+        const newCategories = selectedCategories.includes(strCategory)
+          ? selectedCategories.filter((category) => category !== strCategory)
+          : [...selectedCategories, strCategory];
+        searchParams.set('category', newCategories.join(','));
+        return (
+          <Link to={`?${searchParams.toString()}`}>
+            <Button
+              color={selectedCategories?.includes(strCategory) ? 'secondary' : 'primary'}
+              key={strCategory}
+            >
+              {strCategory}
+            </Button>
+          </Link>
+        );
+      })}
     </Styles.Container>
   );
 };

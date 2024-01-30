@@ -3,24 +3,24 @@ import { Category } from '../types/category';
 import { devtools } from 'zustand/middleware';
 
 interface CategoryStore {
-  selectedCategories: Category['idCategory'][];
-  toggleCategory: (idCategory: Category['idCategory']) => void;
+  selectedCategories: Category['strCategory'][];
+  toggleCategory: (strCategory: Category['strCategory']) => void;
 }
 
 const useCategoryStore = create<CategoryStore>()(
   devtools((set) => ({
     selectedCategories: [],
-    toggleCategory: (idCategory) => {
+    toggleCategory: (strCategory) => {
       set((prev) => {
-        if (prev.selectedCategories.includes(idCategory)) {
+        if (prev.selectedCategories.includes(strCategory)) {
           return {
             ...prev,
-            selectedCategories: prev.selectedCategories.filter((id) => id !== idCategory),
+            selectedCategories: prev.selectedCategories.filter((id) => id !== strCategory),
           };
         }
         return {
           ...prev,
-          selectedCategories: [...prev.selectedCategories, idCategory],
+          selectedCategories: [...prev.selectedCategories, strCategory],
         };
       });
     },

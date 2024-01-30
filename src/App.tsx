@@ -1,15 +1,13 @@
-import { Suspense } from 'react';
 import '@styles/reset.css';
-import CategoriesList from '@components/CategoriesList';
 import Layout from '@components/Layout';
-import CategoriesListSkeleton from '@components/CategoriesList/skeleton';
+import Header from '@components/Header';
+import { Outlet } from 'react-router-dom';
 
 const App = () => {
   return (
     <Layout>
-      <Suspense fallback={<CategoriesListSkeleton />}>
-        <CategoriesList />
-      </Suspense>
+      <Header />
+      <Outlet />
     </Layout>
   );
 };

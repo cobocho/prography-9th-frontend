@@ -4,7 +4,9 @@ import Logo from '@assets/logo/logo.png';
 const Header = () => {
   return (
     <Styles.Container>
-      <Styles.LogoImage src={Logo} />
+      <Styles.HeaderBox>
+        <Styles.LogoImage src={Logo} />
+      </Styles.HeaderBox>
     </Styles.Container>
   );
 };
