@@ -1,5 +1,12 @@
+import Header from '@components/Header';
+import '@styles/reset.css';
+
 const App = () => {
-  return <></>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 };
 
 export default App;
