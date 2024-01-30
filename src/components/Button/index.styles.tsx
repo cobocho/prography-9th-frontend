@@ -21,7 +21,14 @@ export const Container = styled.button<Props>`
 
   padding: 0 20px;
 
-  /* background-color: ${({ color }) => color}; */
+  background-color: ${({ color }) => {
+    switch (color) {
+      case 'primary':
+        return `grey`;
+      case 'secondary':
+        return `pink`;
+    }
+  }};
 
   border-radius: ${({ size }) => {
     switch (size) {
