@@ -1,15 +1,17 @@
 import { ButtonHTMLAttributes } from 'react';
 
+export type DropdownOption = { value: string; displayName: string };
+
 interface Props extends ButtonHTMLAttributes<HTMLSelectElement> {
-  options: Array<string | number>;
+  options: DropdownOption[];
 }
 
-const Dropdown = ({ options, onChange, ...rest }: Props) => {
+const Dropdown = ({ value, options, onChange, ...rest }: Props) => {
   return (
-    <select {...rest} onChange={onChange}>
+    <select value={value} {...rest} onChange={onChange}>
       {options.map((option) => (
-        <option key={option} value={option}>
-          {option}
+        <option key={option.value} value={option.value}>
+          {option.displayName}
         </option>
       ))}
     </select>

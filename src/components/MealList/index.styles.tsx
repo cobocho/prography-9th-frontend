@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ColumnQuantityType } from '../../store/filter';
+import { ColumnQuantityType } from '@store/filter';
 
 interface ContainerProps {
   column: ColumnQuantityType;

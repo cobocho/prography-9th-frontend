@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGetMealsByCategories } from '../api/meals.api';
-import { SortFilterType, useCategories, useFilterSort, useFilterViewCount } from '../store/filter';
+import { SortFilterType, useCategories, useFilterSort, useFilterViewCount } from '@store/filter';
 import { Meal } from '../types/meal';
 
 const useMealsViewModel = (quantityPerPage: number) => {

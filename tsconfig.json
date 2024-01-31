@@ -11,6 +11,7 @@
       "@styles/*": ["./src/styles/*"],
       "@assets/*": ["./src/assets/*"],
       "@constants/*": ["./src/constants/*"],
+      "@store/*": ["./src/store/*"],
     },
 
     /* Bundler mode */

@@ -1,4 +1,4 @@
-import { useFilterColumnQuantity } from '../../store/filter';
+import { useFilterColumnQuantity } from '@store/filter';
 import * as Styles from './index.styles';
 import MealItemSkeleton from '@components/MealItem/skeleton';
 

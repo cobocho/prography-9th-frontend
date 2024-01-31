@@ -3,7 +3,7 @@ import * as Styles from './index.styles';
 import { useGetAllCategories } from '../../api/category.api';
 import { useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useCategories } from '../../store/filter';
+import { useCategories } from '@store/filter';
 import { useEffect } from 'react';
 
 const CategoriesList = () => {
