@@ -1,9 +1,15 @@
-import { DESKTOP_CONTAINER_WIDTH, HEADER_HEIGHT } from '@styles/layout-variables';
+import { HEADER_HEIGHT } from '@styles/layout-variables';
+import { device, media } from '@styles/media';
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: ${DESKTOP_CONTAINER_WIDTH};
+  width: ${device.desktop};
 
   margin: 0 auto;
-  padding: calc(${HEADER_HEIGHT + 80}px) 0;
+  padding-top: calc(${HEADER_HEIGHT + 80}px);
+
+  ${media.phone`
+    width: 100dvw;
+    padding: calc(${HEADER_HEIGHT + 20}px) 20px;
+  `}
 `;

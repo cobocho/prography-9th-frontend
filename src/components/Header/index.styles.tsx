@@ -1,4 +1,5 @@
-import { DESKTOP_CONTAINER_WIDTH, HEADER_HEIGHT } from '@styles/layout-variables';
+import { HEADER_HEIGHT } from '@styles/layout-variables';
+import { device } from '@styles/media';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -14,7 +15,7 @@ export const Container = styled.div`
 `;
 
 export const HeaderBox = styled.header`
-  width: ${DESKTOP_CONTAINER_WIDTH};
+  width: ${device.desktop};
   height: 100%;
 
   padding: 10px;
