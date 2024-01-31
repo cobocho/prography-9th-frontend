@@ -14,8 +14,10 @@ export const Container = styled.div`
   }
 
   ${media.desktop`
-    .column-quantity {
-      display: 'none'
+    .dropdown-box {
+      .column-quantity {
+        display: none
+      }
     }
   `}
 `;

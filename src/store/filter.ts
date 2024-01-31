@@ -33,6 +33,7 @@ export const sortFilterList: SortItemType[] = [
 export const COLUMN_QUANTITY_TYPE = {
   four: '4',
   two: '2',
+  one: '1',
 } as const;
 
 export type ColumnQuantityType = (typeof COLUMN_QUANTITY_TYPE)[keyof typeof COLUMN_QUANTITY_TYPE];

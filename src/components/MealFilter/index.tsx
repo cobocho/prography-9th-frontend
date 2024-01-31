@@ -51,7 +51,9 @@ const MealFilter = () => {
 
       const changeColumnQuantityByWindowSize = () => {
         if (window.innerWidth <= pixelToNumber(device.desktop)) {
-          setColumnQuantity(COLUMN_QUANTITY_TYPE.two);
+          setColumnQuantity(COLUMN_QUANTITY_TYPE.one);
+        } else {
+          setColumnQuantity(COLUMN_QUANTITY_TYPE.four);
         }
       };
 
