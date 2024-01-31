@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 
 interface Props extends ButtonHTMLAttributes<HTMLSelectElement> {
-  options: string[];
+  options: Array<string | number>;
 }
 
 const Dropdown = ({ options, onChange, ...rest }: Props) => {
