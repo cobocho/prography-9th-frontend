@@ -1,3 +1,4 @@
+import { media } from '@styles/media';
 import styled from 'styled-components';
 
 export const Container = styled.div`
@@ -11,4 +12,10 @@ export const Container = styled.div`
     display: flex;
     gap: 10px;
   }
+
+  ${media.desktop`
+    .column-quantity {
+      display: 'none'
+    }
+  `}
 `;

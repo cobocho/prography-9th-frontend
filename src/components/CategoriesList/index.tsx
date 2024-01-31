@@ -28,11 +28,13 @@ const CategoriesList = () => {
           : [...searchParamsArray, strCategory];
         searchParams.set('category', newCategories.join(','));
         return (
-          <Link to={`?${searchParams.toString()}`} key={strCategory}>
-            <Button color={searchParamsArray?.includes(strCategory) ? 'secondary' : 'primary'}>
-              {strCategory}
-            </Button>
-          </Link>
+          <li key={strCategory}>
+            <Link to={`?${searchParams.toString()}`}>
+              <Button color={searchParamsArray?.includes(strCategory) ? 'secondary' : 'primary'}>
+                {strCategory}
+              </Button>
+            </Link>
+          </li>
         );
       })}
     </Styles.Container>

@@ -19,7 +19,9 @@ const MealList = () => {
   return (
     <Styles.Container column={columnQuantity}>
       {viewMeals.map((meal) => (
-        <MealItem meal={meal} key={meal.idMeal} />
+        <li key={meal.idMeal}>
+          <MealItem meal={meal} />
+        </li>
       ))}
       <div ref={observer} />
     </Styles.Container>

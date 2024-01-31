@@ -8,7 +8,7 @@ export const Container = styled.div`
   margin: 0 auto;
   padding-top: calc(${HEADER_HEIGHT + 80}px);
 
-  ${media.phone`
+  ${media.desktop`
     width: 100dvw;
     padding: calc(${HEADER_HEIGHT + 20}px) 20px;
   `}

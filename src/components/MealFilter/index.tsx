@@ -1,5 +1,6 @@
 import Dropdown from '@components/Dropdown';
 import {
+  COLUMN_QUANTITY_TYPE,
   ColumnQuantityType,
   SortFilterType,
   columnQuantityFilterList,
@@ -12,13 +13,15 @@ import ViewCount from './ViewCount';
 import * as Styles from './index.styles';
 import { FormEvent, useLayoutEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { device } from '@styles/media';
+import { pixelToNumber } from '../../utils/converter';
 
 const MealFilter = () => {
   const { viewCount } = useFilterViewCount();
   const { sort, setSort } = useFilterSort();
-  const { setColumnQuantity } = useFilterColumnQuantity();
-  const navigate = useNavigate();
+  const { columnQuantity, setColumnQuantity } = useFilterColumnQuantity();
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
 
   const sortDropdownChangeHandler = (e: FormEvent<HTMLSelectElement>) => {
     setSort(e.currentTarget.value as SortFilterType);
@@ -39,22 +42,46 @@ const MealFilter = () => {
   };
 
   useLayoutEffect(
-    function setDefaultSortType() {
+    function setDefaultFilterType() {
       const existingFilter = searchParams.get('filter');
 
       if (existingFilter) {
         setSort(existingFilter as SortFilterType);
       }
+
+      const changeColumnQuantityByWindowSize = () => {
+        if (window.innerWidth <= pixelToNumber(device.desktop)) {
+          setColumnQuantity(COLUMN_QUANTITY_TYPE.two);
+        }
+      };
+
+      changeColumnQuantityByWindowSize();
+
+      window.addEventListener('resize', changeColumnQuantityByWindowSize);
+
+      return () => {
+        window.removeEventListener('resize', changeColumnQuantityByWindowSize);
+      };
     },
-    [searchParams, setSort],
+    [searchParams, setColumnQuantity, setSort],
   );
 
   return (
     <Styles.Container>
       <ViewCount current={viewCount.current} total={viewCount.total} />
       <div className="dropdown-box">
-        <Dropdown onChange={columnQuantityChangeHandler} options={columnQuantityFilterList} />
-        <Dropdown value={sort} onChange={sortDropdownChangeHandler} options={sortFilterList} />
+        <Dropdown
+          className="column-quantity"
+          value={columnQuantity}
+          onChange={columnQuantityChangeHandler}
+          options={columnQuantityFilterList}
+        />
+        <Dropdown
+          className="sort"
+          value={sort}
+          onChange={sortDropdownChangeHandler}
+          options={sortFilterList}
+        />
       </div>
     </Styles.Container>
   );

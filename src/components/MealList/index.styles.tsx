@@ -5,7 +5,7 @@ interface ContainerProps {
   column: ColumnQuantityType;
 }
 
-export const Container = styled.div<ContainerProps>`
+export const Container = styled.ul<ContainerProps>`
   display: grid;
   grid-template-columns: ${(props) => `repeat(${props.column}, 1fr)`};
   grid-gap: 10px;
