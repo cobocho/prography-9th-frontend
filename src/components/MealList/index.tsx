@@ -6,7 +6,7 @@ import useInteractionObserver from '../../hooks/useInteractionObserver';
 import { useEffect, useRef } from 'react';
 
 const MealList = () => {
-  const { viewMeals, increasePage } = useMealsViewModel();
+  const { viewMeals, increasePage } = useMealsViewModel(20);
   const { columnQuantity } = useFilterColumnQuantity();
   const observer = useRef(null);
 

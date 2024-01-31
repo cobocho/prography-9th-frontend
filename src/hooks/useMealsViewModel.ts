@@ -3,7 +3,7 @@ import { useGetMealsByCategories } from '../api/meals.api';
 import { SortFilterType, useCategories, useFilterSort, useFilterViewCount } from '../store/filter';
 import { Meal } from '../types/meal';
 
-const useMealsViewModel = () => {
+const useMealsViewModel = (quantityPerPage: number) => {
   const { selectedCategories } = useCategories();
   const { sort } = useFilterSort();
   const queries = useGetMealsByCategories(selectedCategories);
@@ -15,11 +15,11 @@ const useMealsViewModel = () => {
   const sortMeals = (meals: Meal[], sort: SortFilterType) => {
     switch (sort) {
       case 'new':
-        return meals.sort((a, b) => Number(a.idMeal) - Number(b.idMeal));
+        return [...meals].sort((a, b) => Number(a.idMeal) - Number(b.idMeal));
       case 'asc':
-        return meals.sort();
+        return [...meals].sort((a, b) => a.strMeal.localeCompare(b.strMeal));
       case 'desc':
-        return meals.sort().reverse();
+        return [...meals].sort((a, b) => b.strMeal.localeCompare(a.strMeal));
     }
   };
 
@@ -36,12 +36,18 @@ const useMealsViewModel = () => {
     setPage((prev) => prev + 1);
   };
 
+  const spliceMeals = (meals: Meal[], page: number) => {
+    return [...meals].splice(0, quantityPerPage * page);
+  };
+
   useEffect(
     function changedCategory() {
-      setPage(1);
       const filteredMeals = getFilteredMeals();
+      const splicedMeals = spliceMeals(filteredMeals, 1);
+      setPage(1);
+      setViewMeals(splicedMeals);
       setTotalViewCount(filteredMeals.length);
-      setViewMeals(filteredMeals.splice(0, 20 * page));
+      setCurrentViewCount(splicedMeals.length);
     },
     [selectedCategories],
   );
@@ -49,7 +55,8 @@ const useMealsViewModel = () => {
   useEffect(
     function changedSortType() {
       const filteredMeals = getFilteredMeals();
-      setViewMeals(filteredMeals.splice(0, 20 * page));
+      const splicedMeals = spliceMeals(filteredMeals, page);
+      setViewMeals(splicedMeals);
     },
     [sort],
   );
@@ -57,9 +64,9 @@ const useMealsViewModel = () => {
   useEffect(
     function changedPage() {
       const filteredMeals = getFilteredMeals();
-      const result = filteredMeals.splice(0, 20 * page);
-      setViewMeals(result);
-      setCurrentViewCount(result.length);
+      const splicedMeals = spliceMeals(filteredMeals, page);
+      setViewMeals(splicedMeals);
+      setCurrentViewCount(splicedMeals.length);
     },
     [page],
   );
