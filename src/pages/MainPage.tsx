@@ -3,6 +3,7 @@ import CategoriesListSkeleton from '@components/CategoriesList/skeleton';
 import { Suspense } from 'react';
 import MealFilter from '@components/MealFilter';
 import MealList from '@components/MealList';
+import MealListSkeleton from '@components/MealList/skeleton';
 
 const MainPage = () => {
   return (
@@ -11,7 +12,7 @@ const MainPage = () => {
         <CategoriesList />
       </Suspense>
       <MealFilter />
-      <Suspense fallback={<div>로딩</div>}>
+      <Suspense fallback={<MealListSkeleton length={20} />}>
         <MealList />
       </Suspense>
     </>
