@@ -12,7 +12,9 @@ export const useGetAllCategories = () => {
   return useSuspenseQuery<Category[]>({
     queryKey: ALL_CATEGORY_QUERY_KEY,
     queryFn: () =>
-      http.get<{ categories: Category[] }>(`/categories.php`).then((res) => res.categories),
+      http
+        .get<{ categories: Category[] }>(`/categories.php`)
+        .then((res) => res.categories.sort((a, b) => Number(a.idCategory) - Number(b.idCategory))),
     staleTime: ALL_CATEGORY_STALE_TIME,
   });
 };
