@@ -8,7 +8,9 @@ const Dropdown = ({ options, onChange, ...rest }: Props) => {
   return (
     <select {...rest} onChange={onChange}>
       {options.map((option) => (
-        <option value={option}>{option}</option>
+        <option key={option} value={option}>
+          {option}
+        </option>
       ))}
     </select>
   );
