@@ -17,6 +17,8 @@ interface FilterStore {
   };
   selectedCategories: Category['strCategory'][];
   sort: SortFilterType;
+  setCurrentViewCount: (count: number) => void;
+  setTotalViewCount: (count: number) => void;
   setCategories: (categories: Category['strCategory'][]) => void;
   setSort: (sortType: SortFilterType) => void;
 }
@@ -29,6 +31,15 @@ const useFilterStore = create<FilterStore>()(
     },
     selectedCategories: [],
     sort: SORT_FILTER_TYPE.new,
+    setCurrentViewCount: (count) => {
+      set((prev) => ({ ...prev, viewCount: { current: count, total: prev.viewCount.total } }));
+    },
+    setTotalViewCount: (count) => {
+      set((prev) => ({
+        ...prev,
+        viewCount: { current: prev.viewCount.current, total: count },
+      }));
+    },
     setCategories: (selectedCategories) => {
       set((prev) => ({ ...prev, selectedCategories }));
     },
@@ -38,7 +49,10 @@ const useFilterStore = create<FilterStore>()(
   })),
 );
 
-export const useFilterViewCount = () => useFilterStore((state) => state.viewCount);
+export const useFilterViewCount = () => {
+  const { setCurrentViewCount, setTotalViewCount, viewCount } = useFilterStore();
+  return { setCurrentViewCount, setTotalViewCount, viewCount };
+};
 
 export const useFilterSort = () => {
   const { setSort, sort } = useFilterStore();

@@ -10,7 +10,7 @@ import * as Styles from './index.styles';
 import { FormEvent } from 'react';
 
 const MealFilter = () => {
-  const { current, total } = useFilterViewCount();
+  const { viewCount } = useFilterViewCount();
   const { setSort } = useFilterSort();
 
   const dropdownChangeHandler = (e: FormEvent<HTMLSelectElement>) => {
@@ -19,7 +19,7 @@ const MealFilter = () => {
 
   return (
     <Styles.Container>
-      <ViewCount current={current} total={total} />
+      <ViewCount current={viewCount.current} total={viewCount.total} />
       <Dropdown onChange={dropdownChangeHandler} options={Object.values(SORT_FILTER_TYPE)} />
     </Styles.Container>
   );

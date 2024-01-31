@@ -1,4 +1,4 @@
-import { UseQueryOptions, useQueries } from '@tanstack/react-query';
+import { UseQueryOptions, useSuspenseQueries } from '@tanstack/react-query';
 import { http } from './http';
 import { Meal } from '../types/meal';
 
@@ -16,5 +16,5 @@ export const useGetMealsByCategories = (categories: string[]) => {
     };
   });
 
-  return useQueries<Meal[]>({ queries });
+  return useSuspenseQueries<Meal[]>({ queries });
 };
