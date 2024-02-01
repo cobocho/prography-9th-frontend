@@ -6,8 +6,6 @@ export const http = {
       method: 'GET',
     });
 
-    throw response;
-
     if (!response.ok) {
       throw response;
     }
