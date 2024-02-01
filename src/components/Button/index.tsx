@@ -1,7 +1,7 @@
 import * as Styles from './index.styles';
-import { ButtonHTMLAttributes, PropsWithChildren, memo } from 'react';
+import { ButtonHTMLAttributes, memo } from 'react';
 
-export interface Props extends ButtonHTMLAttributes<HTMLButtonElement>, PropsWithChildren {
+export interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: 'primary' | 'secondary';
   size?: 'big' | 'medium' | 'small';
 }

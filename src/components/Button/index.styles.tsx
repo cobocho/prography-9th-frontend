@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { Props } from '.';
 import { memo } from 'react';
+import { theme } from '@styles/theme';
 
 const BIG_HEIGHT = 70;
 
@@ -25,9 +26,9 @@ export const Container = memo(styled.button<Props>`
   background-color: ${({ color }) => {
     switch (color) {
       case 'primary':
-        return `lightgrey`;
+        return theme.primary;
       case 'secondary':
-        return `pink`;
+        return theme.secondary;
     }
   }};
 
@@ -41,7 +42,10 @@ export const Container = memo(styled.button<Props>`
         return `${SMALL_HEIGHT / 2}px`;
     }
   }};
+
   border: none;
+
+  color: white;
 
   font-size: ${({ size }) => {
     switch (size) {
@@ -54,7 +58,13 @@ export const Container = memo(styled.button<Props>`
     }
   }};
 
+  transition: transform 0.5s;
+
   &:hover {
     cursor: pointer;
+
+    background-color: ${theme.secondary};
+
+    transform: translateY(-3px);
   }
 `);
