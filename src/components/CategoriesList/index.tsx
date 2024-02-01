@@ -1,10 +1,10 @@
 import Button from '@components/Button';
 import * as Styles from './index.styles';
 import { useGetAllCategories } from '../../api/category.api';
-import { useSearchParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useCategories } from '@store/filter';
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
+import { Category } from '../../types/category';
 
 const CategoriesList = () => {
   const { data: categories } = useGetAllCategories();
@@ -15,9 +15,23 @@ const CategoriesList = () => {
 
   const currentSearchParams = searchParams.get('category');
 
-  const searchParamsArray = useMemo(() => {
-    return currentSearchParams ? currentSearchParams.split(',') : [];
-  }, [currentSearchParams]);
+  const navigate = useNavigate();
+
+  const searchParamsArray = useMemo(
+    () => (currentSearchParams ? currentSearchParams.split(',') : []),
+    [currentSearchParams],
+  );
+
+  const clickHandler = useCallback(
+    (strCategory: Category['strCategory']) => {
+      const newCategories = searchParamsArray.includes(strCategory)
+        ? searchParamsArray.filter((category) => category !== strCategory)
+        : [...searchParamsArray, strCategory];
+      searchParams.set('category', newCategories.join(','));
+      navigate(`?${searchParams}`);
+    },
+    [navigate, searchParams, searchParamsArray],
+  );
 
   useEffect(
     function changeCategory() {
@@ -28,21 +42,16 @@ const CategoriesList = () => {
 
   return (
     <Styles.Container>
-      {categories!.map(({ strCategory }) => {
-        const newCategories = searchParamsArray.includes(strCategory)
-          ? searchParamsArray.filter((category) => category !== strCategory)
-          : [...searchParamsArray, strCategory];
-        searchParams.set('category', newCategories.join(','));
-        return (
-          <li key={strCategory}>
-            <Link to={`?${searchParams.toString()}`}>
-              <Button color={searchParamsArray?.includes(strCategory) ? 'secondary' : 'primary'}>
-                {strCategory}
-              </Button>
-            </Link>
-          </li>
-        );
-      })}
+      {categories!.map(({ strCategory }) => (
+        <li key={strCategory}>
+          <Button
+            onClick={() => clickHandler(strCategory)}
+            color={searchParamsArray?.includes(strCategory) ? 'secondary' : 'primary'}
+          >
+            {strCategory}
+          </Button>
+        </li>
+      ))}
     </Styles.Container>
   );
 };
