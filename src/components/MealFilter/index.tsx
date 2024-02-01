@@ -11,7 +11,7 @@ import {
 } from '@store/filter';
 import ViewCount from './ViewCount';
 import * as Styles from './index.styles';
-import { FormEvent, useLayoutEffect } from 'react';
+import { FormEvent, useCallback, useLayoutEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { device } from '@styles/media';
 import { pixelToNumber } from '../../utils/converter';
@@ -23,23 +23,29 @@ const MealFilter = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
-  const sortDropdownChangeHandler = (e: FormEvent<HTMLSelectElement>) => {
-    setSort(e.currentTarget.value as SortFilterType);
+  const sortDropdownChangeHandler = useCallback(
+    (e: FormEvent<HTMLSelectElement>) => {
+      setSort(e.currentTarget.value as SortFilterType);
 
-    const existingFilter = searchParams.get('filter');
+      const existingFilter = searchParams.get('filter');
 
-    if (existingFilter) {
-      searchParams.set('filter', e.currentTarget.value);
-    } else {
-      searchParams.append('filter', e.currentTarget.value);
-    }
+      if (existingFilter) {
+        searchParams.set('filter', e.currentTarget.value);
+      } else {
+        searchParams.append('filter', e.currentTarget.value);
+      }
 
-    navigate(`?${searchParams.toString()}`);
-  };
+      navigate(`?${searchParams.toString()}`);
+    },
+    [navigate, searchParams, setSort],
+  );
 
-  const columnQuantityChangeHandler = (e: FormEvent<HTMLSelectElement>) => {
-    setColumnQuantity(e.currentTarget.value as ColumnQuantityType);
-  };
+  const columnQuantityChangeHandler = useCallback(
+    (e: FormEvent<HTMLSelectElement>) => {
+      setColumnQuantity(e.currentTarget.value as ColumnQuantityType);
+    },
+    [setColumnQuantity],
+  );
 
   useLayoutEffect(
     function setDefaultFilterType() {

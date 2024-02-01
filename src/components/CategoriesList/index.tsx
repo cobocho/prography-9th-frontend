@@ -4,7 +4,7 @@ import { useGetAllCategories } from '../../api/category.api';
 import { useSearchParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useCategories } from '@store/filter';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 const CategoriesList = () => {
   const { data: categories } = useGetAllCategories();
@@ -14,11 +14,17 @@ const CategoriesList = () => {
   const { setCategories } = useCategories();
 
   const currentSearchParams = searchParams.get('category');
-  const searchParamsArray = currentSearchParams ? currentSearchParams.split(',') : [];
 
-  useEffect(() => {
-    setCategories(searchParamsArray);
+  const searchParamsArray = useMemo(() => {
+    return currentSearchParams ? currentSearchParams.split(',') : [];
   }, [currentSearchParams]);
+
+  useEffect(
+    function changeCategory() {
+      setCategories(searchParamsArray);
+    },
+    [currentSearchParams, searchParamsArray, setCategories],
+  );
 
   return (
     <Styles.Container>

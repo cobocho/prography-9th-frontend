@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Props } from '.';
+import { memo } from 'react';
 
 const BIG_HEIGHT = 70;
 
@@ -7,7 +8,7 @@ const MEDIUM_HEIGHT = 40;
 
 const SMALL_HEIGHT = 20;
 
-export const Container = styled.button<Props>`
+export const Container = memo(styled.button<Props>`
   height: ${({ size }) => {
     switch (size) {
       case 'big':
@@ -45,4 +46,4 @@ export const Container = styled.button<Props>`
   &:hover {
     cursor: pointer;
   }
-`;
+`);
