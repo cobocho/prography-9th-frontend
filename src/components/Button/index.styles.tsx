@@ -43,6 +43,17 @@ export const Container = memo(styled.button<Props>`
   }};
   border: none;
 
+  font-size: ${({ size }) => {
+    switch (size) {
+      case 'big':
+        return `24px`;
+      case 'medium':
+        return `16px`;
+      case 'small':
+        return `12px`;
+    }
+  }};
+
   &:hover {
     cursor: pointer;
   }
