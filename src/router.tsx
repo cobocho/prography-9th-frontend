@@ -1,19 +1,29 @@
-import { createBrowserRouter } from 'react-router-dom';
 import App from './App';
-import MainPage from './pages/MainPage';
-import NotFound from './pages/NotFound';
+import { createBrowserRouter } from 'react-router-dom';
+import { Suspense } from 'react';
+import { PATH } from '@constants/path';
+import { MainPage, NotFound } from './lazy';
+import LoadingPage from './pages/LoadingPage';
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
       {
-        path: '/',
-        element: <MainPage />,
+        path: PATH.root,
+        element: (
+          <Suspense fallback={<LoadingPage />}>
+            <MainPage />
+          </Suspense>
+        ),
       },
       {
         path: '*',
-        element: <NotFound />,
+        element: (
+          <Suspense fallback={<LoadingPage />}>
+            <NotFound />
+          </Suspense>
+        ),
       },
     ],
   },
