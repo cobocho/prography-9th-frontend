@@ -1,8 +1,8 @@
-import useMealsViewModel from '../../hooks/useMealsViewModel';
+import useMealsViewModel from '@hooks/useMealsViewModel';
+import useInteractionObserver from '@hooks/useInteractionObserver';
 import MealItem from '@components/MealItem';
 import * as Styles from './index.styles';
 import { useFilterColumnQuantity } from '@store/filter';
-import useInteractionObserver from '../../hooks/useInteractionObserver';
 import { useEffect, useRef } from 'react';
 
 const MealList = () => {
